@@ -11,24 +11,24 @@ import java.io.Serializable;
 public class Account implements Serializable {
     @Id
     @Column(name = "username")
-    private String userame;
+    private String username;
     @Column(name = "password")
     private String password;
 
     public Account() {
     }
 
-    public Account(String userame, String password) {
-        this.userame = userame;
+    public Account(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
-    public String getUserame() {
-        return userame;
+    public String getUsername() {
+        return username;
     }
 
-    public Account setUserame(String userame) {
-        this.userame = userame;
+    public Account setUsername(String username) {
+        this.username = username;
         return this;
     }
 

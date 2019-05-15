@@ -23,13 +23,13 @@ public class Product implements Serializable {
     private String description;
     @Column(name = "quantity")
     private int quantity;
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "image_id")
     private Image image;
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "producer_id")
     private Producer producer;
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "promotion_id")
     private Promotion promotion;
     public Product() {

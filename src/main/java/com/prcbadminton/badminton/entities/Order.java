@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "Order")
+@Table(name = "Orders")
 @Getter
 @Setter
 public class Order implements Serializable {
@@ -25,13 +25,16 @@ public class Order implements Serializable {
     @Column(name = "date")
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date date;
+    @Column(name = "active")
+    private boolean active;
 
     public Order() {
     }
 
-    public Order(String description, User user_id, Date date) {
+    public Order(String description, User user_id, Date date, boolean active) {
         this.description = description;
         this.user_id = user_id;
         this.date = date;
+        this.active = active;
     }
 }

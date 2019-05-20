@@ -21,13 +21,16 @@ public class Promotion implements Serializable {
     private float discountl;
     @Column(name = "status")
     private boolean status;
+    @Column(name = "active")
+    private boolean active;
 
     public Promotion() {
     }
 
-    public Promotion(String type, float discountl, boolean status) {
+    public Promotion(String type, float discountl, boolean status, boolean active) {
         this.type = type;
         this.discountl = discountl;
         this.status = status;
+        this.active = active;
     }
 }

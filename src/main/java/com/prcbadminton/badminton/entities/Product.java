@@ -23,6 +23,8 @@ public class Product implements Serializable {
     private String description;
     @Column(name = "quantity")
     private int quantity;
+    @Column(name = "active")
+    private boolean active;
     @ManyToOne
     @JoinColumn(name = "image_id")
     private Image image;
@@ -35,11 +37,12 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(String name, double price, String description, int quantity, Image image, Producer producer, Promotion promotion) {
+    public Product(String name, double price, String description, int quantity, boolean active, Image image, Producer producer, Promotion promotion) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.quantity = quantity;
+        this.active = active;
         this.image = image;
         this.producer = producer;
         this.promotion = promotion;

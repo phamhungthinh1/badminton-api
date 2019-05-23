@@ -25,6 +25,14 @@ public class Product implements Serializable {
     private int quantity;
     @Column(name = "active")
     private boolean active;
+    @Column(name = "flex")
+    private String flex;
+    @Column(name = "shaft")
+    private String shaft;
+    @Column(name = "weight")
+    private String weight;
+    @Column(name = "color")
+    private String color;
     @ManyToOne
     @JoinColumn(name = "image_id")
     private Image image;
@@ -37,12 +45,16 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(String name, double price, String description, int quantity, boolean active, Image image, Producer producer, Promotion promotion) {
+    public Product(String name, double price, String description, int quantity, boolean active, String flex, String shaft, String weight, String color, Image image, Producer producer, Promotion promotion) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.quantity = quantity;
         this.active = active;
+        this.flex = flex;
+        this.shaft = shaft;
+        this.weight = weight;
+        this.color = color;
         this.image = image;
         this.producer = producer;
         this.promotion = promotion;

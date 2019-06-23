@@ -18,6 +18,32 @@ public class ProductService implements IProductService{
     public List<Product> getAllProduct() {
         return this.productRepository.findAll();
     }
+
+    @Override
+    public List<Product> getProductInHomePage() {
+        return productRepository.getProductInHomePage();
+    }
+
+    @Override
+    public List<Product> getBestSalesProduct() {
+        return this.productRepository.getBestSalesProduct();
+    }
+
+    @Override
+    public List<Product> getFourProduct() {
+        return this.productRepository.getFourProduct();
+    }
+
+    @Override
+    public List<Product> getAllPromotionProduct() {
+        return this.productRepository.getAllPromotionProduct();
+    }
+
+    @Override
+    public List<Product> getAllBestSalesProduct() {
+        return this.productRepository.getAllBestSalesProduct();
+    }
+
     public Optional<Product> findById(int id) {
         return this.productRepository.findById(id);
     }
@@ -29,4 +55,6 @@ public class ProductService implements IProductService{
     public void deleteById(int id) {
         this.productRepository.deleteById(id);
     }
+
+
 }

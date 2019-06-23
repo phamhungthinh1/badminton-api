@@ -25,6 +25,31 @@ public class ProductController {
 //        this.productService = productService;
 //    }
 
+    @GetMapping("/promotionProduct")
+    public List<Product> getProductInHomePage() {
+        return this.productService.getProductInHomePage();
+    }
+
+    @GetMapping("/bestSalesProduct")
+    public List<Product> getBestSalesProduct() {
+        return this.productService.getBestSalesProduct();
+    }
+
+    @GetMapping("/fourProduct")
+    public List<Product> getFourProduct() {
+        return this.productService.getFourProduct();
+    }
+
+    @GetMapping("/allPromotionProduct")
+    public List<Product> getAllPromotionProduct() {
+        return this.productService.getAllPromotionProduct();
+    }
+
+    @GetMapping("/allBestSalesProduct")
+    public List<Product> getAllBestSalesProduct() {
+        return this.productService.getAllBestSalesProduct();
+    }
+
     @GetMapping("/")
     public List<Product> getAll() {
         return this.productService.getAllProduct();

@@ -18,7 +18,7 @@ public class Promotion implements Serializable {
     @Column(name = "type")
     private String type;
     @Column(name = "discount")
-    private float discountl;
+    private float discount;
     @Column(name = "status")
     private boolean status;
     @Column(name = "active")
@@ -29,7 +29,7 @@ public class Promotion implements Serializable {
 
     public Promotion(String type, float discountl, boolean status, boolean active) {
         this.type = type;
-        this.discountl = discountl;
+        this.discount = discount;
         this.status = status;
         this.active = active;
     }

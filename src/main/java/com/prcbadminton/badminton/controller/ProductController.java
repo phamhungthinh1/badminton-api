@@ -3,10 +3,15 @@ package com.prcbadminton.badminton.controller;
 import com.prcbadminton.badminton.entities.Product;
 import com.prcbadminton.badminton.repository.ProductRepository;
 import com.prcbadminton.badminton.services.ProductService;
-import org.springframework.http.ResponseEntity;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 @CrossOrigin
@@ -87,6 +92,25 @@ public class ProductController {
         productService.deleteById(id);
 
         return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(value = "/image/{name}", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> getImageAsResponseEntity(@PathVariable String name) {
+        HttpHeaders headers = new HttpHeaders();
+
+        String path = "D:\\1.Study\\Cloud\\ReactBadminton\\Image\\" + name;
+        Path pathFile = Paths.get(path);
+        byte[] media = new byte[0];
+        try {
+            media = Files.readAllBytes(pathFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        headers.setContentType(MediaType.IMAGE_PNG);
+        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
+        return responseEntity;
     }
 }
 

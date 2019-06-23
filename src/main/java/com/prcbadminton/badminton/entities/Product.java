@@ -1,10 +1,12 @@
 package com.prcbadminton.badminton.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "Product")
@@ -33,9 +35,10 @@ public class Product implements Serializable {
     private String weight;
     @Column(name = "color")
     private String color;
-    @ManyToOne
-    @JoinColumn(name = "image_id")
-    private Image image;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    private Set<Image> image;
     @ManyToOne
     @JoinColumn(name = "producer_id")
     private Producer producer;
@@ -45,7 +48,7 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(String name, double price, String description, int quantity, boolean active, String flex, String shaft, String weight, String color, Image image, Producer producer, Promotion promotion) {
+    public Product(String name, double price, String description, int quantity, boolean active, String flex, String shaft, String weight, String color, Set<Image> image, Producer producer, Promotion promotion) {
         this.name = name;
         this.price = price;
         this.description = description;
@@ -150,11 +153,11 @@ public class Product implements Serializable {
         return this;
     }
 
-    public Image getImage() {
+    public Set<Image> getImage() {
         return image;
     }
 
-    public Product setImage(Image image) {
+    public Product setImage(Set<Image> image) {
         this.image = image;
         return this;
     }

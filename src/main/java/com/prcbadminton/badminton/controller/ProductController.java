@@ -66,10 +66,6 @@ public class ProductController {
         return this.productService.getAllProduct(page, element);
     }
 
-    @PostMapping
-    public ResponseEntity create(@Valid @RequestBody Product product) {
-        return ResponseEntity.ok(this.productService.save(product));
-    }
     @GetMapping("/{id}")
     public ResponseEntity<Product> findById(@PathVariable int id) {
         Optional<Product> stock = productService.findById(id);
@@ -118,6 +114,26 @@ public class ProductController {
         headers.setContentType(MediaType.IMAGE_PNG);
         ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
         return responseEntity;
+    }
+
+    @PostMapping
+    public ResponseEntity create(@RequestBody Product product) {
+        try {
+            productService.save(product);
+        } catch(Exception e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PutMapping
+    public ResponseEntity update(@RequestBody Product product) {
+        try {
+            productService.save(product);
+        } catch(Exception e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
 

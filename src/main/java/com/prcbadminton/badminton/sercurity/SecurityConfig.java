@@ -30,10 +30,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         JWTAuthenticationFilter authenticationFilter = new JWTAuthenticationFilter(authenticationManager(), userRepository);
         authenticationFilter.setFilterProcessesUrl("/user/login");
-        http.cors()
-                .and()
+        http.cors().disable().csrf().disable();
+                http
                 .exceptionHandling()
-                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.BAD_REQUEST))
                 .and()
                 .csrf()
                 .disable()
@@ -42,7 +42,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET).permitAll()
-//                .antMatchers(HttpMethod.GET, "/api/**").hasRole("AMATEUR")
                 .antMatchers("/user/sign-up")
                 .permitAll()
                 .anyRequest()

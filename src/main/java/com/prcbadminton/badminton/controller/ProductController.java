@@ -1,5 +1,6 @@
 package com.prcbadminton.badminton.controller;
 
+import com.prcbadminton.badminton.dto.PageDTO;
 import com.prcbadminton.badminton.entities.Product;
 import com.prcbadminton.badminton.repository.ProductRepository;
 import com.prcbadminton.badminton.services.ProductService;
@@ -46,23 +47,25 @@ public class ProductController {
     }
 
     @GetMapping("/allPromotionProduct")
-    public List<Product> getAllPromotionProduct() {
-        return this.productService.getAllPromotionProduct();
+    public PageDTO<Product> getAllPromotionProduct(@RequestParam Integer page, @RequestParam Integer element) {
+        return this.productService.getAllPromotionProduct(page, element);
+    }
+
+    @GetMapping("/getProductByName")
+    public PageDTO<Product> getAllPromotionProduct(@RequestParam Integer page, @RequestParam Integer element, @RequestParam String searchValue) {
+        return this.productService.getProductByName(page, element, searchValue);
     }
 
     @GetMapping("/allBestSalesProduct")
-    public List<Product> getAllBestSalesProduct() {
-        return this.productService.getAllBestSalesProduct();
+    public PageDTO<Product> getAllBestSalesProduct(@RequestParam Integer page, @RequestParam Integer element) {
+        return this.productService.getAllBestSalesProduct(page, element);
     }
 
     @GetMapping("/")
-    public List<Product> getAll() {
-        return this.productService.getAllProduct();
+    public PageDTO<Product> getAll(@RequestParam Integer page, @RequestParam Integer element) {
+        return this.productService.getAllProduct(page, element);
     }
-    @PostMapping
-    public ResponseEntity create(@Valid @RequestBody Product product) {
-        return ResponseEntity.ok(this.productService.save(product));
-    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Product> findById(@PathVariable int id) {
         Optional<Product> stock = productService.findById(id);
@@ -111,6 +114,26 @@ public class ProductController {
         headers.setContentType(MediaType.IMAGE_PNG);
         ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
         return responseEntity;
+    }
+
+    @PostMapping
+    public ResponseEntity create(@RequestBody Product product) {
+        try {
+            productService.save(product);
+        } catch(Exception e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PutMapping
+    public ResponseEntity update(@RequestBody Product product) {
+        try {
+            productService.save(product);
+        } catch(Exception e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
 

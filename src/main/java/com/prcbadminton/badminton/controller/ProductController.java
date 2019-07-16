@@ -52,7 +52,7 @@ public class ProductController {
     }
 
     @GetMapping("/getProductByName")
-    public PageDTO<Product> getAllPromotionProduct(@RequestParam Integer page, @RequestParam Integer element, @RequestParam String searchValue) {
+    public PageDTO<Product> searchProductByName(@RequestParam Integer page, @RequestParam Integer element, @RequestParam String searchValue) {
         return this.productService.getProductByName(page, element, searchValue);
     }
 

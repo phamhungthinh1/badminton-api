@@ -42,7 +42,7 @@ public class Product implements Serializable {
     @ManyToOne
     @JoinColumn(name = "producer_id")
     private Producer producer;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "promotion_id")
     private Promotion promotion;
     public Product() {

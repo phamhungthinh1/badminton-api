@@ -128,9 +128,9 @@ public class ProductController {
     }
 
     @PutMapping
-    public ResponseEntity update(@RequestBody Product product) {
+    public ResponseEntity update(@RequestBody ProductDTO product) {
         try {
-//            productService.save(product);
+            productService.save(product);
         } catch(Exception e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }

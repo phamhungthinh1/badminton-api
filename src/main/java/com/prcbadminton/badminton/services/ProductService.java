@@ -2,9 +2,11 @@ package com.prcbadminton.badminton.services;
 
 import com.prcbadminton.badminton.dto.PageDTO;
 import com.prcbadminton.badminton.dto.ProductDTO;
+import com.prcbadminton.badminton.entities.Image;
 import com.prcbadminton.badminton.entities.Producer;
 import com.prcbadminton.badminton.entities.Product;
 import com.prcbadminton.badminton.entities.Promotion;
+import com.prcbadminton.badminton.repository.ImageRepository;
 import com.prcbadminton.badminton.repository.ProducerRepository;
 import com.prcbadminton.badminton.repository.ProductRepository;
 import com.prcbadminton.badminton.repository.PromotionRepository;
@@ -25,6 +27,8 @@ public class ProductService implements IProductService{
     private PromotionRepository promotionRepository;
     @Autowired
     private ProducerRepository producerRepository;
+    @Autowired
+    private ImageRepository imageRepository;
 
     public PageDTO<Product> getProductByName(Integer page, Integer element, String searchValue) {
         Pageable pageable = (Pageable) PageRequest.of(page - 1, element);
@@ -83,17 +87,33 @@ public class ProductService implements IProductService{
 
     public void save(ProductDTO productDTO) throws Exception {
         Product product = new Product();
+        if (productDTO.getId() > 0) {
+            product.setId(productDTO.getId());
+        }
         product.setName(productDTO.getName());
-        product.setColor(productDTO.getColor());
+        product.setColor(productDTO.getDescription());
+        product.setFlex(productDTO.getFlex());
+        product.setPrice(productDTO.getPrice());
+        product.setQuantity(productDTO.getQuantity());
+        product.setShaft(productDTO.getShaft());
+        product.setWeight(productDTO.getWeight());
+        product.setDescription(productDTO.getColor());
+
         Optional<Promotion> promotion = promotionRepository.findById(productDTO.getPromotionId());
         if (promotion.isPresent()) {
             product.setPromotion(promotion.get());
         }
         Optional<Producer> producer = producerRepository.findById(productDTO.getProducerId());
-       if (producer.isPresent()) {
+        if (producer.isPresent()) {
            product.setProducer(producer.get());
-       }
-        productRepository.save(product);
+        }
+        Product newProduct = productRepository.save(product);
+        for (int i = 0; i < productDTO.getImage().size(); i++) {
+            Image img = new Image();
+            img.setUrl(productDTO.getImage().get(i).getUrl());
+            img.setProduct(newProduct);
+            imageRepository.save(img);
+        }
     }
 
     public void deleteById(int id) {

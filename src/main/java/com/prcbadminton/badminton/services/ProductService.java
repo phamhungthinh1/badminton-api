@@ -1,8 +1,13 @@
 package com.prcbadminton.badminton.services;
 
 import com.prcbadminton.badminton.dto.PageDTO;
+import com.prcbadminton.badminton.dto.ProductDTO;
+import com.prcbadminton.badminton.entities.Producer;
 import com.prcbadminton.badminton.entities.Product;
+import com.prcbadminton.badminton.entities.Promotion;
+import com.prcbadminton.badminton.repository.ProducerRepository;
 import com.prcbadminton.badminton.repository.ProductRepository;
+import com.prcbadminton.badminton.repository.PromotionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +21,10 @@ import java.util.List;
 public class ProductService implements IProductService{
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private PromotionRepository promotionRepository;
+    @Autowired
+    private ProducerRepository producerRepository;
 
     public PageDTO<Product> getProductByName(Integer page, Integer element, String searchValue) {
         Pageable pageable = (Pageable) PageRequest.of(page - 1, element);
@@ -72,8 +81,19 @@ public class ProductService implements IProductService{
         return this.productRepository.findById(id);
     }
 
-    public void save(Product badminton) throws Exception {
-       productRepository.save(badminton);
+    public void save(ProductDTO productDTO) throws Exception {
+        Product product = new Product();
+        product.setName(productDTO.getName());
+        product.setColor(productDTO.getColor());
+        Optional<Promotion> promotion = promotionRepository.findById(productDTO.getPromotionId());
+        if (promotion.isPresent()) {
+            product.setPromotion(promotion.get());
+        }
+        Optional<Producer> producer = producerRepository.findById(productDTO.getProducerId());
+       if (producer.isPresent()) {
+           product.setProducer(producer.get());
+       }
+        productRepository.save(product);
     }
 
     public void deleteById(int id) {

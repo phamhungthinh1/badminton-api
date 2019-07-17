@@ -1,6 +1,7 @@
 package com.prcbadminton.badminton.controller;
 
 import com.prcbadminton.badminton.dto.PageDTO;
+import com.prcbadminton.badminton.dto.ProductDTO;
 import com.prcbadminton.badminton.entities.Product;
 import com.prcbadminton.badminton.repository.ProductRepository;
 import com.prcbadminton.badminton.services.ProductService;
@@ -117,7 +118,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody Product product) {
+    public ResponseEntity create(@RequestBody ProductDTO product) {
         try {
             productService.save(product);
         } catch(Exception e) {
@@ -129,7 +130,7 @@ public class ProductController {
     @PutMapping
     public ResponseEntity update(@RequestBody Product product) {
         try {
-            productService.save(product);
+//            productService.save(product);
         } catch(Exception e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }

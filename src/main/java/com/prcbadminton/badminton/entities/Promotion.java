@@ -19,18 +19,36 @@ public class Promotion implements Serializable {
     private String type;
     @Column(name = "discount")
     private float discount;
-    @Column(name = "status")
-    private boolean status;
-    @Column(name = "active")
-    private boolean active;
 
     public Promotion() {
     }
 
-    public Promotion(String type, float discountl, boolean status, boolean active) {
+    public Promotion(String type, float discount) {
         this.type = type;
         this.discount = discount;
-        this.status = status;
-        this.active = active;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public float getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(float discount) {
+        this.discount = discount;
     }
 }

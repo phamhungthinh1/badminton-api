@@ -25,8 +25,6 @@ public class Product implements Serializable {
     private String description;
     @Column(name = "quantity")
     private int quantity;
-    @Column(name = "active")
-    private boolean active;
     @Column(name = "flex")
     private String flex;
     @Column(name = "shaft")
@@ -48,12 +46,11 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(String name, double price, String description, int quantity, boolean active, String flex, String shaft, String weight, String color, Set<Image> image, Producer producer, Promotion promotion) {
+    public Product(String name, double price, String description, int quantity, String flex, String shaft, String weight, String color, Set<Image> image, Producer producer, Promotion promotion) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.quantity = quantity;
-        this.active = active;
         this.flex = flex;
         this.shaft = shaft;
         this.weight = weight;
@@ -67,116 +64,95 @@ public class Product implements Serializable {
         return id;
     }
 
-    public Product setId(int id) {
+    public void setId(int id) {
         this.id = id;
-        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public Product setName(String name) {
+    public void setName(String name) {
         this.name = name;
-        return this;
     }
 
     public double getPrice() {
         return price;
     }
 
-    public Product setPrice(double price) {
+    public void setPrice(double price) {
         this.price = price;
-        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public Product setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
-        return this;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
-    public Product setQuantity(int quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
-        return this;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public Product setActive(boolean active) {
-        this.active = active;
-        return this;
     }
 
     public String getFlex() {
         return flex;
     }
 
-    public Product setFlex(String flex) {
+    public void setFlex(String flex) {
         this.flex = flex;
-        return this;
     }
 
     public String getShaft() {
         return shaft;
     }
 
-    public Product setShaft(String shaft) {
+    public void setShaft(String shaft) {
         this.shaft = shaft;
-        return this;
     }
 
     public String getWeight() {
         return weight;
     }
 
-    public Product setWeight(String weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
-        return this;
     }
 
     public String getColor() {
         return color;
     }
 
-    public Product setColor(String color) {
+    public void setColor(String color) {
         this.color = color;
-        return this;
     }
 
     public Set<Image> getImage() {
         return image;
     }
 
-    public Product setImage(Set<Image> image) {
+    public void setImage(Set<Image> image) {
         this.image = image;
-        return this;
     }
 
     public Producer getProducer() {
         return producer;
     }
 
-    public Product setProducer(Producer producer) {
+    public void setProducer(Producer producer) {
         this.producer = producer;
-        return this;
     }
 
     public Promotion getPromotion() {
         return promotion;
     }
 
-    public Product setPromotion(Promotion promotion) {
+    public void setPromotion(Promotion promotion) {
         this.promotion = promotion;
-        return this;
     }
 }

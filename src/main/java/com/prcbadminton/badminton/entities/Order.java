@@ -17,24 +17,42 @@ public class Order implements Serializable {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "description")
-    private String description;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user_id;
     @Column(name = "date")
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date date;
-    @Column(name = "active")
-    private boolean active;
+    private Date date = new Date();
 
     public Order() {
     }
 
-    public Order(String description, User user_id, Date date, boolean active) {
-        this.description = description;
+    public Order(User user_id, Date date) {
         this.user_id = user_id;
         this.date = date;
-        this.active = active;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public User getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(User user_id) {
+        this.user_id = user_id;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

@@ -19,7 +19,7 @@ public class ProductService implements IProductService{
 
     public PageDTO<Product> getProductByName(Integer page, Integer element, String searchValue) {
         Pageable pageable = (Pageable) PageRequest.of(page - 1, element);
-        Page<Product> listData = this.productRepository.getProductByName(pageable, searchValue);
+        Page<Product> listData = productRepository.getProductByName(pageable, searchValue);
         PageDTO<Product> pageDTO = new PageDTO<>();
         pageDTO.setMaxPage(listData.getTotalPages());
         pageDTO.setData(listData.getContent());
@@ -52,7 +52,7 @@ public class ProductService implements IProductService{
 
     public PageDTO<Product> getAllPromotionProduct(Integer page, Integer element) {
         Pageable pageable = (Pageable) PageRequest.of(page - 1, element);
-        Page<Product> listData = this.productRepository.getAllPromotionProduct(pageable);
+        Page<Product> listData = productRepository.getAllPromotionProduct(pageable);
         PageDTO<Product> pageDTO = new PageDTO<>();
         pageDTO.setMaxPage(listData.getTotalPages());
         pageDTO.setData(listData.getContent());
@@ -61,7 +61,7 @@ public class ProductService implements IProductService{
 
     public PageDTO<Product> getAllBestSalesProduct(Integer page, Integer element) {
         Pageable pageable = PageRequest.of(page - 1, element);
-        Page<Product> listData = this.productRepository.getAllPromotionProduct(pageable);
+        Page<Product> listData = productRepository.getAllPromotionProduct(pageable);
         PageDTO<Product> pageDTO = new PageDTO<>();
         pageDTO.setMaxPage(listData.getTotalPages());
         pageDTO.setData(listData.getContent());

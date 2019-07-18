@@ -21,8 +21,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query(value = "SELECT top 9 * from product p order by p.id asc", nativeQuery = true)
     public List<Product> getFourProduct();
 
-    @Query(value = "SELECT * from product p where p.name like :searchValue order by p.id asc", nativeQuery = true)
+    @Query(value = "SELECT * from product p where p.name like %:searchValue% order by p.id asc", nativeQuery = true)
     public Page<Product> getProductByName(Pageable pageable, @Param("searchValue") String searchValue);
+
 
     @Query(value = "SELECT * from product p where p.promotion_id is not null order by price asc", nativeQuery = true)
     public Page<Product> getAllPromotionProduct(Pageable pageable);

@@ -25,19 +25,18 @@ public class User implements Serializable {
     private String role;
     @Column(name = "active")
     private boolean active;
-    @OneToOne
-    @JoinColumn(name = "image_id")
-    private Image image;
+    @Column(name = "address")
+    private String address;
     public User() {
     }
 
-    public User(String name, String password, String email, String role, boolean active, Image image) {
+    public User(String name, String password, String email, String role, boolean active, String address) {
         this.name = name;
         this.password = password;
         this.email = email;
         this.role = role;
         this.active = active;
-        this.image = image;
+        this.address = address;
     }
 
     public int getId() {
@@ -88,11 +87,11 @@ public class User implements Serializable {
         this.active = active;
     }
 
-    public Image getImage() {
-        return image;
+    public String getAddress() {
+        return address;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

@@ -76,15 +76,15 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         res.setContentType("application/json");
 
 //        // get account details
-//        Optional<User> account = userRepository.findByEmail(email);
-//        account.get().setPassword("");
-//        // convert object to json string
-//        ObjectMapper mapper = new ObjectMapper();
-//        String accountJson = mapper.writeValueAsString(account.get().getRole());
-//        System.out.println("SUCESSSSSSSSSSSSSSSSSSS");
-//        // write respone
-//        PrintWriter out = res.getWriter();
-//        out.print(accountJson);
-//        out.flush();
+        Optional<User> account = userRepository.findByEmail(email);
+        account.get().setPassword("");
+        // convert object to json string
+        ObjectMapper mapper = new ObjectMapper();
+        String accountJson = mapper.writeValueAsString(account.get().getName());
+        System.out.println("SUCESSSSSSSSSSSSSSSSSSS");
+        // write respone
+        PrintWriter out = res.getWriter();
+        out.print(accountJson);
+        out.flush();
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,4 +35,16 @@ public class UserService implements IUserService{
         }
         return false;
     }
+
+    @Override
+    public List<User> getAll() throws Exception {
+        return userRepository.getAllByRoleNotLike("ROLE_ADMIN");
+    }
+
+    @Override
+    public void save(User user) {
+        userRepository.save(user);
+    }
+
+
 }

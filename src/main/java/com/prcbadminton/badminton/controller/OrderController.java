@@ -9,10 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -33,5 +30,18 @@ public class OrderController {
         Optional<User> account = (Optional<User>)((Authentication) principal).getCredentials();
         orderService.createOrder(orderList, account.get());
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+     @GetMapping
+    public ResponseEntity<List<Order>> getAll() {
+        try {
+            List<Order> orders = orderService.getAll();
+            if (orders.size() == 0) {
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity(orders, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

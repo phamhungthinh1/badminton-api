@@ -8,7 +8,7 @@ import com.prcbadminton.badminton.repository.ProductRepository;
 import com.prcbadminton.badminton.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.prcbadminton.badminton.entities.Order;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,8 +38,12 @@ public class OrderService implements IOrderService{
             orderDetail.setOrderDetailIdentity(orderDetailIdentity);
             orderDetail.setQuantity(orderList.get(i).getCount());
             orderDetail.setMoney(orderList.get(i).getPrice());
-            orderDetail.setModify(new Date());
             orderDetailRepository.save(orderDetail);
         }
+    }
+    
+    @Override
+    public List<Order> getAll() throws Exception{
+        return orderRepository.findAll();
     }
 }

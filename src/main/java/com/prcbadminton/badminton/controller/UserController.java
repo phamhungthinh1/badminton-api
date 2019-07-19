@@ -9,7 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -35,5 +36,24 @@ public class UserController {
         }
         Optional<User> account = (Optional<User>)((Authentication) principal).getCredentials();
         return new ResponseEntity(account, HttpStatus.OK);
+    }
+    
+    @GetMapping
+    public ResponseEntity<User> getAll() {
+        try {
+            List<User> users = userService.getAll();
+            if (users.size() == 0) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity(users, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity deactiveAccount(@RequestBody User user) {
+        userService.save(user);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

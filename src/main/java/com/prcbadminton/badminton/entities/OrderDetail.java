@@ -25,18 +25,13 @@ public class OrderDetail implements Serializable {
     @Column(name = "money")
     private float money;
 
-    @Column(name = "date")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date modify;
-
     public OrderDetail() {
     }
 
-    public OrderDetail(OrderDetailIdentity orderDetailIdentity, int quantity, float money, Date modify) {
+    public OrderDetail(OrderDetailIdentity orderDetailIdentity, int quantity, float money) {
         this.orderDetailIdentity = orderDetailIdentity;
         this.quantity = quantity;
         this.money = money;
-        this.modify = modify;
     }
 
     public OrderDetailIdentity getOrderDetailIdentity() {
@@ -61,13 +56,5 @@ public class OrderDetail implements Serializable {
 
     public void setMoney(float money) {
         this.money = money;
-    }
-
-    public Date getModify() {
-        return modify;
-    }
-
-    public void setModify(Date modify) {
-        this.modify = modify;
     }
 }

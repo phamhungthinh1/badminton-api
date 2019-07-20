@@ -19,7 +19,7 @@ public class UserDetailService implements UserDetailsService {
     private UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<com.prcbadminton.badminton.entities.User> account = userRepository.findByEmail(email);
+        Optional<com.prcbadminton.badminton.entities.User> account = userRepository.findByEmailAndActive(email, true);
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(account.get().getRole()));
         return new User(account.get().getEmail(), account.get().getPassword(), grantedAuthorities);

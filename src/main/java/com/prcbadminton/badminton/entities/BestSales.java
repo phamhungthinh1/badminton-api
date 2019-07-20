@@ -1,6 +1,7 @@
 package com.prcbadminton.badminton.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -10,18 +11,18 @@ public class BestSales implements Serializable {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
+    @NotNull
     @Column(name = "quantity")
     private double quantity;
-
-    @ManyToOne
+    @NotNull
+    @OneToOne
     @JoinColumn(name = "product_id")
     private Product product_id;
 
     public BestSales() {
     }
 
-    public BestSales(double quantity, Product product_id) {
+    public BestSales(@NotNull double quantity, @NotNull Product product_id) {
         this.quantity = quantity;
         this.product_id = product_id;
     }

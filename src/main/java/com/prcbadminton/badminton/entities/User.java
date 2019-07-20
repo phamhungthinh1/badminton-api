@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -15,22 +16,28 @@ public class User implements Serializable {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotNull
     @Column(name = "name")
     private String name;
+    @NotNull
     @Column(name = "password")
     private String password;
+    @NotNull
     @Column(name = "email")
     private String email;
+    @NotNull
     @Column(name = "role")
     private String role;
+    @NotNull
     @Column(name = "active")
     private boolean active;
+    @NotNull
     @Column(name = "address")
     private String address;
     public User() {
     }
 
-    public User(String name, String password, String email, String role, boolean active, String address) {
+    public User(@NotNull String name, @NotNull String password, @NotNull String email, @NotNull String role, @NotNull boolean active, @NotNull String address) {
         this.name = name;
         this.password = password;
         this.email = email;

@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,9 +18,11 @@ public class Order implements Serializable {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user_id;
+    @NotNull
     @Column(name = "date")
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date date = new Date();
@@ -27,7 +30,7 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(User user_id, Date date) {
+    public Order(@NotNull User user_id, @NotNull Date date) {
         this.user_id = user_id;
         this.date = date;
     }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -15,16 +16,14 @@ public class Promotion implements Serializable {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "type")
-    private String type;
+    @NotNull
     @Column(name = "discount")
     private float discount;
 
     public Promotion() {
     }
 
-    public Promotion(String type, float discount) {
-        this.type = type;
+    public Promotion(@NotNull float discount) {
         this.discount = discount;
     }
 
@@ -34,14 +33,6 @@ public class Promotion implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public float getDiscount() {

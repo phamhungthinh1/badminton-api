@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,17 +19,17 @@ import java.util.Date;
 public class OrderDetail implements Serializable {
     @EmbeddedId
     private OrderDetailIdentity orderDetailIdentity;
-
+    @NotNull
     @Column(name = "quantity")
     private int quantity;
-
+    @NotNull
     @Column(name = "money")
     private float money;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(OrderDetailIdentity orderDetailIdentity, int quantity, float money) {
+    public OrderDetail(OrderDetailIdentity orderDetailIdentity, @NotNull int quantity, @NotNull float money) {
         this.orderDetailIdentity = orderDetailIdentity;
         this.quantity = quantity;
         this.money = money;

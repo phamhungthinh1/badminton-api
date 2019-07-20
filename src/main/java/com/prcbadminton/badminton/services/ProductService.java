@@ -91,13 +91,12 @@ public class ProductService implements IProductService{
             product.setId(productDTO.getId());
         }
         product.setName(productDTO.getName());
-        product.setColor(productDTO.getDescription());
+        product.setColor(productDTO.getColor());
         product.setFlex(productDTO.getFlex());
         product.setPrice(productDTO.getPrice());
-        product.setQuantity(productDTO.getQuantity());
         product.setShaft(productDTO.getShaft());
         product.setWeight(productDTO.getWeight());
-        product.setDescription(productDTO.getColor());
+        product.setDescription(productDTO.getDescription());
 
         Optional<Promotion> promotion = promotionRepository.findById(productDTO.getPromotionId());
         if (promotion.isPresent()) {
@@ -108,6 +107,8 @@ public class ProductService implements IProductService{
            product.setProducer(producer.get());
         }
         Product newProduct = productRepository.save(product);
+        List<Image> images = imageRepository.findAllByProduct(newProduct);
+        imageRepository.deleteAll(images);
         for (int i = 0; i < productDTO.getImage().size(); i++) {
             Image img = new Image();
             img.setUrl(productDTO.getImage().get(i).getUrl());

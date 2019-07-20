@@ -3,6 +3,7 @@ package com.prcbadminton.badminton.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Images")
@@ -11,6 +12,7 @@ public class Image {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotNull
     @Column(name = "url")
     private String url;
     @JsonBackReference
@@ -20,7 +22,7 @@ public class Image {
     public Image() {
     }
 
-    public Image(String url, Product product) {
+    public Image(@NotNull String url, Product product) {
         this.url = url;
         this.product = product;
     }

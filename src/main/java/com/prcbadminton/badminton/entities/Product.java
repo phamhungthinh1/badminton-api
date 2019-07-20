@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -17,27 +18,33 @@ public class Product implements Serializable {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotNull
     @Column(name = "name")
     private String name;
+    @NotNull
     @Column(name = "price")
     private double price;
+    @NotNull
     @Column(name = "description")
     private String description;
-    @Column(name = "quantity")
-    private int quantity;
+    @NotNull
     @Column(name = "flex")
     private String flex;
+    @NotNull
     @Column(name = "shaft")
     private String shaft;
+    @NotNull
     @Column(name = "weight")
     private String weight;
+    @NotNull
     @Column(name = "color")
     private String color;
     @JsonManagedReference
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     private Set<Image> image;
-    @ManyToOne
+    @NotNull
+    @OneToOne
     @JoinColumn(name = "producer_id")
     private Producer producer;
     @OneToOne
@@ -46,11 +53,10 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(String name, double price, String description, int quantity, String flex, String shaft, String weight, String color, Set<Image> image, Producer producer, Promotion promotion) {
+    public Product(@NotNull String name, @NotNull double price, @NotNull String description, @NotNull String flex, @NotNull String shaft, @NotNull String weight, @NotNull String color, Set<Image> image, @NotNull Producer producer, Promotion promotion) {
         this.name = name;
         this.price = price;
         this.description = description;
-        this.quantity = quantity;
         this.flex = flex;
         this.shaft = shaft;
         this.weight = weight;
@@ -90,14 +96,6 @@ public class Product implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public String getFlex() {

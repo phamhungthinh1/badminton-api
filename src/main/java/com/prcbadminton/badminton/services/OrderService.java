@@ -2,10 +2,7 @@ package com.prcbadminton.badminton.services;
 
 import com.prcbadminton.badminton.dto.OrderDTO;
 import com.prcbadminton.badminton.entities.*;
-import com.prcbadminton.badminton.repository.OrderDetailRepository;
-import com.prcbadminton.badminton.repository.OrderRepository;
-import com.prcbadminton.badminton.repository.ProductRepository;
-import com.prcbadminton.badminton.repository.UserRepository;
+import com.prcbadminton.badminton.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.prcbadminton.badminton.entities.Order;
@@ -21,9 +18,9 @@ public class OrderService implements IOrderService{
     @Autowired
     private OrderDetailRepository orderDetailRepository;
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private BestSalesRepository bestSalesRepository;
     @Override
     public void createOrder(List<OrderDTO> orderList, User user) {
         Order order = new Order();
@@ -39,6 +36,16 @@ public class OrderService implements IOrderService{
             orderDetail.setQuantity(orderList.get(i).getCount());
             orderDetail.setMoney(orderList.get(i).getPrice());
             orderDetailRepository.save(orderDetail);
+            Optional<BestSales> bestSales = bestSalesRepository.findBestSalesByProduct(product.get().getId());
+            if (bestSales.isPresent()) {
+                BestSales updateBestSales = bestSales.get();
+                updateBestSales.setQuantity(bestSales.get().getQuantity() + orderList.get(i).getCount());
+                bestSalesRepository.save(updateBestSales);
+            } else {
+                BestSales updateBestSales = new BestSales();
+                updateBestSales.setQuantity(orderList.get(i).getCount());
+                updateBestSales.setProduct_id(product.get());
+            }
         }
     }
     
